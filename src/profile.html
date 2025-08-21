@@ -8,383 +8,291 @@
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Profile | TailAdmin - Tailwind CSS Admin Dashboard Template</title>
+    <link href="./output.css" rel="stylesheet">
   </head>
-  <body
-    x-data="{ page: 'profile', 'loaded': true, 'darkMode': false, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false, 'isProfileInfoModal': false, 'isProfileAddressModal': false }"
-    x-init="
-         darkMode = JSON.parse(localStorage.getItem('darkMode'));
-         $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
-    :class="{'dark bg-gray-900': darkMode === true}"
-  >
+  <body class="bg-white dark:bg-gray-900">
     <!-- ===== Preloader Start ===== -->
-    <include src="./partials/preloader.html"></include>
+    <div id="preloader" class="preloader">
+      <div class="h-16 w-16 animate-spin rounded-full border-4 border-solid border-blue-600 border-t-transparent"></div>
+    </div>
     <!-- ===== Preloader End ===== -->
 
     <!-- ===== Page Wrapper Start ===== -->
     <div class="flex h-screen overflow-hidden">
       <!-- ===== Sidebar Start ===== -->
-      <include src="./partials/sidebar.html"></include>
+      <aside id="sidebar" class="sidebar fixed left-0 top-0 z-9999 flex h-screen w-[290px] flex-col overflow-y-hidden border-r border-gray-200 bg-white px-5 duration-300 ease-linear dark:border-gray-800 dark:bg-black lg:static lg:translate-x-0 -translate-x-full">
+        <!-- SIDEBAR HEADER -->
+        <div class="sidebar-header flex items-center justify-between gap-2 pb-7 pt-8">
+          <a href="index.html">
+            <span class="logo">
+              <img class="dark:hidden" src="./images/logo/logo.svg" alt="Logo" />
+              <img class="hidden dark:block" src="./images/logo/logo-dark.svg" alt="Logo" />
+            </span>
+            <img class="logo-icon hidden" src="./images/logo/logo-icon.svg" alt="Logo" />
+          </a>
+        </div>
+        <!-- SIDEBAR HEADER -->
+
+        <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
+          <!-- Sidebar Menu -->
+          <nav>
+            <!-- Menu Group -->
+            <div>
+              <h3 class="mb-4 text-xs uppercase leading-[20px] text-gray-400">
+                <span class="menu-group-title">MENU</span>
+              </h3>
+
+              <ul class="mb-6 flex flex-col gap-1.5">
+                <!-- Dashboard -->
+                <li>
+                  <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-gray-600 duration-300 ease-in-out hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white" href="index.html">
+                    <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6.10322 0.956299H2.53135C1.5751 0.956299 0.787598 1.7438 0.787598 2.70005V6.27192C0.787598 7.22817 1.5751 8.01567 2.53135 8.01567H6.10322C7.05947 8.01567 7.84697 7.22817 7.84697 6.27192V2.72817C7.8751 1.7438 7.0876 0.956299 6.10322 0.956299ZM6.60947 6.30005C6.60947 6.5813 6.38447 6.8063 6.10322 6.8063H2.53135C2.2501 6.8063 2.0251 6.5813 2.0251 6.30005V2.72817C2.0251 2.44692 2.2501 2.22192 2.53135 2.22192H6.10322C6.38447 2.22192 6.60947 2.44692 6.60947 2.72817V6.30005Z" fill=""/>
+                      <path d="M15.4689 0.956299H11.8971C10.9408 0.956299 10.1533 1.7438 10.1533 2.70005V6.27192C10.1533 7.22817 10.9408 8.01567 11.8971 8.01567H15.4689C16.4252 8.01567 17.2127 7.22817 17.2127 6.27192V2.72817C17.2408 1.7438 16.4533 0.956299 15.4689 0.956299ZM15.9752 6.30005C15.9752 6.5813 15.7502 6.8063 15.4689 6.8063H11.8971C11.6158 6.8063 11.3908 6.5813 11.3908 6.30005V2.72817C11.3908 2.44692 11.6158 2.22192 11.8971 2.22192H15.4689C15.7502 2.22192 15.9752 2.44692 15.9752 2.72817V6.30005Z" fill=""/>
+                      <path d="M6.10322 9.92822H2.53135C1.5751 9.92822 0.787598 10.7157 0.787598 11.672V15.2438C0.787598 16.2001 1.5751 16.9876 2.53135 16.9876H6.10322C7.05947 16.9876 7.84697 16.2001 7.84697 15.2438V11.7001C7.8751 10.7157 7.0876 9.92822 6.10322 9.92822ZM6.60947 15.272C6.60947 15.5532 6.38447 15.7782 6.10322 15.7782H2.53135C2.2501 15.7782 2.0251 15.5532 2.0251 15.272V11.7001C2.0251 11.4188 2.2501 11.1938 2.53135 11.1938H6.10322C6.38447 11.1938 6.60947 11.4188 6.60947 11.7001V15.272Z" fill=""/>
+                      <path d="M15.4689 9.92822H11.8971C10.9408 9.92822 10.1533 10.7157 10.1533 11.672V15.2438C10.1533 16.2001 10.9408 16.9876 11.8971 16.9876H15.4689C16.4252 16.9876 17.2127 16.2001 17.2127 15.2438V11.7001C17.2408 10.7157 16.4533 9.92822 15.4689 9.92822ZM15.9752 15.272C15.9752 15.5532 15.7502 15.7782 15.4689 15.7782H11.8971C11.6158 15.7782 11.3908 15.5532 11.3908 15.272V11.7001C11.3908 11.4188 11.6158 11.1938 11.8971 11.1938H15.4689C15.7502 11.1938 15.9752 11.4188 15.9752 11.7001V15.272Z" fill=""/>
+                    </svg>
+                    Dashboard
+                  </a>
+                </li>
+                <!-- Calendar -->
+                <li>
+                  <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-gray-600 duration-300 ease-in-out hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white" href="calendar.html">
+                    <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M15.7499 2.9812H14.2874V2.36245C14.2874 2.02495 14.0062 1.71870 13.6687 1.71870C13.3312 1.71870 13.0499 1.99995 13.0499 2.36245V2.9812H4.9499V2.36245C4.9499 2.02495 4.66865 1.71870 4.33115 1.71870C3.99365 1.71870 3.7124 1.99995 3.7124 2.36245V2.9812H2.2499C1.29365 2.9812 0.478027 3.7687 0.478027 4.75245V14.5312C0.478027 15.4875 1.26553 16.3125 2.2499 16.3125H15.7499C16.7062 16.3125 17.5218 15.525 17.5218 14.5312V4.72495C17.5218 3.7687 16.7062 2.9812 15.7499 2.9812ZM1.71553 4.75245C1.71553 4.41245 1.96865 4.21870 2.2499 4.21870H3.7124V4.8375C3.7124 5.175 3.99365 5.48125 4.33115 5.48125C4.66865 5.48125 4.9499 5.2 4.9499 4.8375V4.21870H13.0499V4.8375C13.0499 5.175 13.3312 5.48125 13.6687 5.48125C14.0062 5.48125 14.2874 5.2 14.2874 4.8375V4.21870H15.7499C16.0312 4.21870 16.2843 4.41245 16.2843 4.75245V7.3312H1.71553V4.75245ZM15.7499 15.075H2.2499C1.96865 15.075 1.71553 14.8812 1.71553 14.5412V8.5687H16.2843V14.5412C16.2843 14.8812 16.0312 15.075 15.7499 15.075Z" fill=""/>
+                    </svg>
+                    Calendar
+                  </a>
+                </li>
+                <!-- Profile -->
+                <li>
+                  <a class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-gray-600 duration-300 ease-in-out hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white" href="profile.html">
+                    <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9.0002 7.79065C11.0814 7.79065 12.7689 6.1594 12.7689 4.1344C12.7689 2.1094 11.0814 0.478149 9.0002 0.478149C6.91895 0.478149 5.23145 2.1094 5.23145 4.1344C5.23145 6.1594 6.91895 7.79065 9.0002 7.79065ZM9.0002 1.7719C10.3783 1.7719 11.5033 2.84065 11.5033 4.16252C11.5033 5.4844 10.3783 6.55315 9.0002 6.55315C7.62207 6.55315 6.49707 5.4844 6.49707 4.16252C6.49707 2.84065 7.62207 1.7719 9.0002 1.7719Z" fill=""/>
+                      <path d="M10.8283 9.05627H7.17207C4.16269 9.05627 1.71582 11.5031 1.71582 14.5125V16.875C1.71582 17.2125 1.99707 17.5219 2.36269 17.5219C2.72832 17.5219 3.00957 17.2407 3.00957 16.875V14.5125C3.00957 12.2219 4.88144 10.35 7.17207 10.35H10.8283C13.1189 10.35 14.9908 12.2219 14.9908 14.5125V16.875C14.9908 17.2125 15.2721 17.5219 15.6377 17.5219C16.0033 17.5219 16.2846 17.2407 16.2846 16.875V14.5125C16.2564 11.5031 13.8377 9.05627 10.8283 9.05627Z" fill=""/>
+                    </svg>
+                    Profile
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </aside>
       <!-- ===== Sidebar End ===== -->
 
-      <!-- ===== Content Area Start ===== -->
-      <div
-        class="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto"
-      >
-        <!-- Small Device Overlay Start -->
-        <include src="./partials/overlay.html" />
-        <!-- Small Device Overlay End -->
+      <!-- Mobile Overlay -->
+      <div id="overlay" class="overlay"></div>
 
+      <!-- ===== Content Area Start ===== -->
+      <div class="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
         <!-- ===== Header Start ===== -->
-        <include src="./partials/header.html" />
+        <header class="sticky top-0 z-99999 flex w-full border-gray-200 bg-white lg:border-b dark:border-gray-800 dark:bg-gray-900">
+          <div class="flex grow flex-col items-center justify-between lg:flex-row lg:px-6">
+            <div class="flex w-full items-center justify-between gap-2 border-b border-gray-200 px-3 py-3 sm:gap-4 lg:justify-normal lg:border-b-0 lg:px-0 lg:py-4 dark:border-gray-800">
+              <!-- Hamburger Toggle BTN -->
+              <button id="sidebar-toggle" class="z-99999 flex h-10 w-10 items-center justify-center rounded-lg border-gray-200 text-gray-500 lg:h-11 lg:w-11 lg:border dark:border-gray-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
+                <svg class="hidden fill-current lg:block" width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M0.583252 1C0.583252 0.585788 0.919038 0.25 1.33325 0.25H14.6666C15.0808 0.25 15.4166 0.585786 15.4166 1C15.4166 1.41421 15.0808 1.75 14.6666 1.75L1.33325 1.75C0.919038 1.75 0.583252 1.41422 0.583252 1ZM0.583252 11C0.583252 10.5858 0.919038 10.25 1.33325 10.25L14.6666 10.25C15.0808 10.25 15.4166 10.5858 15.4166 11C15.4166 11.4142 15.0808 11.75 14.6666 11.75L1.33325 11.75C0.919038 11.75 0.583252 11.4142 0.583252 11ZM1.33325 5.25C0.919038 5.25 0.583252 5.58579 0.583252 6C0.583252 6.41421 0.919038 6.75 1.33325 6.75L7.99992 6.75C8.41413 6.75 8.74992 6.41421 8.74992 6C8.74992 5.58579 8.41413 5.25 7.99992 5.25L1.33325 5.25Z" fill=""/>
+                </svg>
+                <svg class="fill-current lg:hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M3.25 6C3.25 5.58579 3.58579 5.25 4 5.25L20 5.25C20.4142 5.25 20.75 5.58579 20.75 6C20.75 6.41421 20.4142 6.75 20 6.75L4 6.75C3.58579 6.75 3.25 6.41422 3.25 6ZM3.25 18C3.25 17.5858 3.58579 17.25 4 17.25L20 17.25C20.4142 17.25 20.75 17.5858 20.75 18C20.75 18.4142 20.4142 18.75 20 18.75L4 18.75C3.58579 18.75 3.25 18.4142 3.25 18ZM4 11.25C3.58579 11.25 3.25 11.5858 3.25 12C3.25 12.4142 3.58579 12.75 4 12.75L12 12.75C12.4142 12.75 12.75 12.4142 12.75 12C12.75 11.5858 12.4142 11.25 12 11.25L4 11.25Z" fill=""/>
+                </svg>
+              </button>
+
+              <!-- Search Form -->
+              <div class="hidden sm:block">
+                <form action="#" method="POST">
+                  <div class="relative">
+                    <button class="absolute left-0 top-1/2 -translate-y-1/2">
+                      <svg class="fill-gray-400 hover:fill-gray-500 dark:fill-gray-500 dark:hover:fill-gray-400" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.16666 3.33332C5.945 3.33332 3.33332 5.945 3.33332 9.16666C3.33332 12.3883 5.945 15 9.16666 15C12.3883 15 15 12.3883 15 9.16666C15 5.945 12.3883 3.33332 9.16666 3.33332ZM1.66666 9.16666C1.66666 5.02452 5.02452 1.66666 9.16666 1.66666C13.3088 1.66666 16.6667 5.02452 16.6667 9.16666C16.6667 13.3088 13.3088 16.6667 9.16666 16.6667C5.02452 16.6667 1.66666 13.3088 1.66666 9.16666Z" fill=""/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2857 13.2857C13.6112 12.9603 14.1388 12.9603 14.4642 13.2857L18.0892 16.9107C18.4147 17.2362 18.4147 17.7638 18.0892 18.0892C17.7638 18.4147 17.2362 18.4147 16.9107 18.0892L13.2857 14.4642C12.9603 14.1388 12.9603 13.6112 13.2857 13.2857Z" fill=""/>
+                      </svg>
+                    </button>
+                    <input type="text" placeholder="Type to search..." class="w-full bg-transparent pl-9 pr-4 text-gray-500 focus:outline-none dark:text-gray-400 xl:w-125" />
+                  </div>
+                </form>
+              </div>
+
+              <!-- User Area -->
+              <div class="flex items-center gap-3 2xsm:gap-7">
+                <!-- Dark Mode Toggle -->
+                <button id="theme-toggle" class="flex h-8.5 w-8.5 items-center justify-center rounded-full border-[0.5px] border-gray-300 bg-gray-100 text-gray-600 hover:text-gray-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:text-white">
+                  <svg class="fill-current" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.99998 11.9219C10.3906 11.9219 12.3281 9.98438 12.3281 7.59375C12.3281 5.20312 10.3906 3.26562 7.99998 3.26562C5.60935 3.26562 3.67185 5.20312 3.67185 7.59375C3.67185 9.98438 5.60935 11.9219 7.99998 11.9219ZM7.99998 4.53125C9.67185 4.53125 11.0625 5.92188 11.0625 7.59375C11.0625 9.26562 9.67185 10.6562 7.99998 10.6562C6.32811 10.6562 4.93748 9.26562 4.93748 7.59375C4.93748 5.92188 6.32811 4.53125 7.99998 4.53125Z" fill=""/>
+                    <path d="M8.53123 2.55938C8.53123 2.25313 8.30623 2.01563 7.99998 2.01563C7.69373 2.01563 7.46873 2.25313 7.46873 2.55938V1.01563C7.46873 0.709377 7.69373 0.471877 7.99998 0.471877C8.30623 0.471877 8.53123 0.709377 8.53123 1.01563V2.55938Z" fill=""/>
+                    <path d="M8.53123 13.4406C8.53123 13.7469 8.30623 13.9844 7.99998 13.9844C7.69373 13.9844 7.46873 13.7469 7.46873 13.4406V14.9844C7.46873 15.2906 7.69373 15.5281 7.99998 15.5281C8.30623 15.5281 8.53123 15.2906 8.53123 14.9844V13.4406Z" fill=""/>
+                    <path d="M2.55938 7.46875C2.25313 7.46875 2.01563 7.69375 2.01563 8C2.01563 8.30625 2.25313 8.54375 2.55938 8.54375H1.01563C0.709377 8.54375 0.471877 8.30625 0.471877 8C0.471877 7.69375 0.709377 7.46875 1.01563 7.46875H2.55938Z" fill=""/>
+                    <path d="M13.4406 7.46875C13.7469 7.46875 13.9844 7.69375 13.9844 8C13.9844 8.30625 13.7469 8.54375 13.4406 8.54375H14.9844C15.2906 8.54375 15.5281 8.30625 15.5281 8C15.5281 7.69375 15.2906 7.46875 14.9844 7.46875H13.4406Z" fill=""/>
+                  </svg>
+                </button>
+
+                <!-- User Dropdown -->
+                <div class="relative">
+                  <a href="#" class="flex items-center gap-4">
+                    <span class="hidden text-right lg:block">
+                      <span class="block text-sm font-medium text-gray-900 dark:text-white">Thomas Anree</span>
+                      <span class="block text-xs text-gray-500 dark:text-gray-400">UX Designer</span>
+                    </span>
+                    <span class="h-12 w-12 rounded-full">
+                      <img src="./images/user/user-01.png" alt="User" class="rounded-full" />
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
         <!-- ===== Header End ===== -->
 
         <!-- ===== Main Content Start ===== -->
         <main>
-          <div class="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
+          <div class="p-4 mx-auto max-w-screen-2xl md:p-6">
             <!-- Breadcrumb Start -->
-            <div x-data="{ pageName: `Profile`}">
-              <include src="./partials/breadcrumb.html" />
+            <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <h2 class="text-title-md2 font-semibold text-gray-900 dark:text-white">Profile</h2>
+              <nav>
+                <ol class="flex items-center gap-2">
+                  <li>
+                    <a class="font-medium text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300" href="index.html">Dashboard /</a>
+                  </li>
+                  <li class="font-medium text-blue-600">Profile</li>
+                </ol>
+              </nav>
             </div>
             <!-- Breadcrumb End -->
 
-            <div
-              class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6"
-            >
-              <h3
-                class="mb-5 text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-7"
-              >
-                Profile
-              </h3>
+            <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
+              <h3 class="mb-5 text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-7">Profile</h3>
 
-              <div
-                class="p-5 mb-6 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6"
-              >
-                <div
-                  class="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between"
-                >
-                  <div
-                    class="flex flex-col items-center w-full gap-6 xl:flex-row"
-                  >
-                    <div
-                      class="w-20 h-20 overflow-hidden border border-gray-200 rounded-full dark:border-gray-800"
-                    >
+              <!-- Profile Header -->
+              <div class="p-5 mb-6 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
+                <div class="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
+                  <div class="flex flex-col items-center w-full gap-6 xl:flex-row">
+                    <div class="w-20 h-20 overflow-hidden border border-gray-200 rounded-full dark:border-gray-800">
                       <img src="./images/user/owner.jpg" alt="user" />
                     </div>
                     <div class="order-3 xl:order-2">
-                      <h4
-                        class="mb-2 text-lg font-semibold text-center text-gray-800 dark:text-white/90 xl:text-left"
-                      >
-                        Musharof Chowdhury
-                      </h4>
-                      <div
-                        class="flex flex-col items-center gap-1 text-center xl:flex-row xl:gap-3 xl:text-left"
-                      >
-                        <p class="text-sm text-gray-500 dark:text-gray-400">
-                          Team Manager
-                        </p>
-                        <div
-                          class="hidden h-3.5 w-px bg-gray-300 dark:bg-gray-700 xl:block"
-                        ></div>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">
-                          Arizona, United States
-                        </p>
+                      <h4 class="mb-2 text-lg font-semibold text-center text-gray-800 dark:text-white/90 xl:text-left">Musharof Chowdhury</h4>
+                      <div class="flex flex-col items-center gap-1 text-center xl:flex-row xl:gap-3 xl:text-left">
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Team Manager</p>
+                        <div class="hidden h-3.5 w-px bg-gray-300 dark:bg-gray-700 xl:block"></div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Arizona, United States</p>
                       </div>
                     </div>
-                    <div
-                      class="flex items-center order-2 gap-2 grow xl:order-3 xl:justify-end"
-                    >
-                      <button
-                        class="flex h-11 w-11 items-center justify-center gap-2 rounded-full border border-gray-300 bg-white text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200"
-                      >
-                        <svg
-                          class="fill-current"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M11.6666 11.2503H13.7499L14.5833 7.91699H11.6666V6.25033C11.6666 5.39251 11.6666 4.58366 13.3333 4.58366H14.5833V1.78374C14.3118 1.7477 13.2858 1.66699 12.2023 1.66699C9.94025 1.66699 8.33325 3.04771 8.33325 5.58342V7.91699H5.83325V11.2503H8.33325V18.3337H11.6666V11.2503Z"
-                            fill=""
-                          />
+                    <div class="flex items-center order-2 gap-2 grow xl:order-3 xl:justify-end">
+                      <!-- Social Media Buttons -->
+                      <button class="flex h-11 w-11 items-center justify-center gap-2 rounded-full border border-gray-300 bg-white text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
+                        <svg class="fill-current" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M11.6666 11.2503H13.7499L14.5833 7.91699H11.6666V6.25033C11.6666 5.39251 11.6666 4.58366 13.3333 4.58366H14.5833V1.78374C14.3118 1.7477 13.2858 1.66699 12.2023 1.66699C9.94025 1.66699 8.33325 3.04771 8.33325 5.58342V7.91699H5.83325V11.2503H8.33325V18.3337H11.6666V11.2503Z" fill=""/>
                         </svg>
                       </button>
 
-                      <button
-                        class="flex h-11 w-11 items-center justify-center gap-2 rounded-full border border-gray-300 bg-white text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200"
-                      >
-                        <svg
-                          class="fill-current"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M15.1708 1.875H17.9274L11.9049 8.75833L18.9899 18.125H13.4424L9.09742 12.4442L4.12578 18.125H1.36745L7.80912 10.7625L1.01245 1.875H6.70078L10.6283 7.0675L15.1708 1.875ZM14.2033 16.475H15.7308L5.87078 3.43833H4.23162L14.2033 16.475Z"
-                            fill=""
-                          />
+                      <button class="flex h-11 w-11 items-center justify-center gap-2 rounded-full border border-gray-300 bg-white text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
+                        <svg class="fill-current" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M15.1708 1.875H17.9274L11.9049 8.75833L18.9899 18.125H13.4424L9.09742 12.4442L4.12578 18.125H1.36745L7.80912 10.7625L1.01245 1.875H6.70078L10.6283 7.0675L15.1708 1.875ZM14.2033 16.475H15.7308L5.87078 3.43833H4.23162L14.2033 16.475Z" fill=""/>
                         </svg>
                       </button>
 
-                      <button
-                        class="flex h-11 w-11 items-center justify-center gap-2 rounded-full border border-gray-300 bg-white text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200"
-                      >
-                        <svg
-                          class="fill-current"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M5.78381 4.16645C5.78351 4.84504 5.37181 5.45569 4.74286 5.71045C4.11391 5.96521 3.39331 5.81321 2.92083 5.32613C2.44836 4.83904 2.31837 4.11413 2.59216 3.49323C2.86596 2.87233 3.48886 2.47942 4.16715 2.49978C5.06804 2.52682 5.78422 3.26515 5.78381 4.16645ZM5.83381 7.06645H2.50048V17.4998H5.83381V7.06645ZM11.1005 7.06645H7.78381V17.4998H11.0672V12.0248C11.0672 8.97475 15.0422 8.69142 15.0422 12.0248V17.4998H18.3338V10.8914C18.3338 5.74978 12.4505 5.94145 11.0672 8.46642L11.1005 7.06645Z"
-                            fill=""
-                          />
+                      <button class="flex h-11 w-11 items-center justify-center gap-2 rounded-full border border-gray-300 bg-white text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
+                        <svg class="fill-current" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M5.78381 4.16645C5.78351 4.84504 5.37181 5.45569 4.74286 5.71045C4.11391 5.96521 3.39331 5.81321 2.92083 5.32613C2.44836 4.83904 2.31837 4.11413 2.59216 3.49323C2.86596 2.87233 3.48886 2.47942 4.16715 2.49978C5.06804 2.52682 5.78422 3.26515 5.78381 4.16645ZM5.83381 7.06645H2.50048V17.4998H5.83381V7.06645ZM11.1005 7.06645H7.78381V17.4998H11.0672V12.0248C11.0672 8.97475 15.0422 8.69142 15.0422 12.0248V17.4998H18.3338V10.8914C18.3338 5.74978 12.4505 5.94145 11.0672 8.46642L11.1005 7.06645Z" fill=""/>
                         </svg>
                       </button>
 
-                      <button
-                        class="flex h-11 w-11 items-center justify-center gap-2 rounded-full border border-gray-300 bg-white text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200"
-                      >
-                        <svg
-                          class="fill-current"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M10.8567 1.66699C11.7946 1.66854 12.2698 1.67351 12.6805 1.68573L12.8422 1.69102C13.0291 1.69766 13.2134 1.70599 13.4357 1.71641C14.3224 1.75738 14.9273 1.89766 15.4586 2.10391C16.0078 2.31572 16.4717 2.60183 16.9349 3.06503C17.3974 3.52822 17.6836 3.99349 17.8961 4.54141C18.1016 5.07197 18.2419 5.67753 18.2836 6.56433C18.2935 6.78655 18.3015 6.97088 18.3081 7.15775L18.3133 7.31949C18.3255 7.73011 18.3311 8.20543 18.3328 9.1433L18.3335 9.76463C18.3336 9.84055 18.3336 9.91888 18.3336 9.99972L18.3335 10.2348L18.333 10.8562C18.3314 11.794 18.3265 12.2694 18.3142 12.68L18.3089 12.8417C18.3023 13.0286 18.294 13.213 18.2836 13.4351C18.2426 14.322 18.1016 14.9268 17.8961 15.458C17.6842 16.0074 17.3974 16.4713 16.9349 16.9345C16.4717 17.397 16.0057 17.6831 15.4586 17.8955C14.9273 18.1011 14.3224 18.2414 13.4357 18.2831C13.2134 18.293 13.0291 18.3011 12.8422 18.3076L12.6805 18.3128C12.2698 18.3251 11.7946 18.3306 10.8567 18.3324L10.2353 18.333C10.1594 18.333 10.0811 18.333 10.0002 18.333H9.76516L9.14375 18.3325C8.20591 18.331 7.7306 18.326 7.31997 18.3137L7.15824 18.3085C6.97136 18.3018 6.78703 18.2935 6.56481 18.2831C5.67801 18.2421 5.07384 18.1011 4.5419 17.8955C3.99328 17.6838 3.5287 17.397 3.06551 16.9345C2.60231 16.4713 2.3169 16.0053 2.1044 15.458C1.89815 14.9268 1.75856 14.322 1.7169 13.4351C1.707 13.213 1.69892 13.0286 1.69238 12.8417L1.68714 12.68C1.67495 12.2694 1.66939 11.794 1.66759 10.8562L1.66748 9.1433C1.66903 8.20543 1.67399 7.73011 1.68621 7.31949L1.69151 7.15775C1.69815 6.97088 1.70648 6.78655 1.7169 6.56433C1.75786 5.67683 1.89815 5.07266 2.1044 4.54141C2.3162 3.9928 2.60231 3.52822 3.06551 3.06503C3.5287 2.60183 3.99398 2.31641 4.5419 2.10391C5.07315 1.89766 5.67731 1.75808 6.56481 1.71641C6.78703 1.70652 6.97136 1.69844 7.15824 1.6919L7.31997 1.68666C7.7306 1.67446 8.20591 1.6689 9.14375 1.6671L10.8567 1.66699ZM10.0002 5.83308C7.69781 5.83308 5.83356 7.69935 5.83356 9.99972C5.83356 12.3021 7.69984 14.1664 10.0002 14.1664C12.3027 14.1664 14.1669 12.3001 14.1669 9.99972C14.1669 7.69732 12.3006 5.83308 10.0002 5.83308ZM10.0002 7.49974C11.381 7.49974 12.5002 8.61863 12.5002 9.99972C12.5002 11.3805 11.3813 12.4997 10.0002 12.4997C8.6195 12.4997 7.50023 11.3809 7.50023 9.99972C7.50023 8.61897 8.61908 7.49974 10.0002 7.49974ZM14.3752 4.58308C13.8008 4.58308 13.3336 5.04967 13.3336 5.62403C13.3336 6.19841 13.8002 6.66572 14.3752 6.66572C14.9496 6.66572 15.4169 6.19913 15.4169 5.62403C15.4169 5.04967 14.9488 4.58236 14.3752 4.58308Z"
-                            fill=""
-                          />
+                      <button class="flex h-11 w-11 items-center justify-center gap-2 rounded-full border border-gray-300 bg-white text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
+                        <svg class="fill-current" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M10.8567 1.66699C11.7946 1.66854 12.2698 1.67351 12.6805 1.68573L12.8422 1.69102C13.0291 1.69766 13.2134 1.70599 13.4357 1.71641C14.3224 1.75738 14.9273 1.89766 15.4586 2.10391C16.0078 2.31572 16.4717 2.60183 16.9349 3.06503C17.3974 3.52822 17.6836 3.99349 17.8961 4.54141C18.1016 5.07197 18.2419 5.67753 18.2836 6.56433C18.2935 6.78655 18.3015 6.97088 18.3081 7.15775L18.3133 7.31949C18.3255 7.73011 18.3311 8.20543 18.3328 9.1433L18.3335 9.76463C18.3336 9.84055 18.3336 9.91888 18.3336 9.99972L18.3335 10.2348L18.333 10.8562C18.3314 11.794 18.3265 12.2694 18.3142 12.68L18.3089 12.8417C18.3023 13.0286 18.294 13.213 18.2836 13.4351C18.2426 14.322 18.1016 14.9268 17.8961 15.458C17.6842 16.0074 17.3974 16.4713 16.9349 16.9345C16.4717 17.397 16.0057 17.6831 15.4586 17.8955C14.9273 18.1011 14.3224 18.2414 13.4357 18.2831C13.2134 18.293 13.0291 18.3011 12.8422 18.3076L12.6805 18.3128C12.2698 18.3251 11.7946 18.3306 10.8567 18.3324L10.2353 18.333C10.1594 18.333 10.0811 18.333 10.0002 18.333H9.76516L9.14375 18.3325C8.20591 18.331 7.7306 18.326 7.31997 18.3137L7.15824 18.3085C6.97136 18.3018 6.78703 18.2935 6.56481 18.2831C5.67801 18.2421 5.07384 18.1011 4.5419 17.8955C3.99328 17.6838 3.5287 17.397 3.06551 16.9345C2.60231 16.4713 2.3169 16.0053 2.1044 15.458C1.89815 14.9268 1.75856 14.322 1.7169 13.4351C1.707 13.213 1.69892 13.0286 1.69238 12.8417L1.68714 12.68C1.67495 12.2694 1.66939 11.794 1.66759 10.8562L1.66748 9.1433C1.66903 8.20543 1.67399 7.73011 1.68621 7.31949L1.69151 7.15775C1.69815 6.97088 1.70648 6.78655 1.7169 6.56433C1.75786 5.67683 1.89815 5.07266 2.1044 4.54141C2.3162 3.9928 2.60231 3.52822 3.06551 3.06503C3.5287 2.60183 3.99398 2.31641 4.5419 2.10391C5.07315 1.89766 5.67731 1.75808 6.56481 1.71641C6.78703 1.70652 6.97136 1.69844 7.15824 1.6919L7.31997 1.68666C7.7306 1.67446 8.20591 1.6689 9.14375 1.6671L10.8567 1.66699ZM10.0002 5.83308C7.69781 5.83308 5.83356 7.69935 5.83356 9.99972C5.83356 12.3021 7.69984 14.1664 10.0002 14.1664C12.3027 14.1664 14.1669 12.3001 14.1669 9.99972C14.1669 7.69732 12.3006 5.83308 10.0002 5.83308ZM10.0002 7.49974C11.381 7.49974 12.5002 8.61863 12.5002 9.99972C12.5002 11.3805 11.3813 12.4997 10.0002 12.4997C8.6195 12.4997 7.50023 11.3809 7.50023 9.99972C7.50023 8.61897 8.61908 7.49974 10.0002 7.49974ZM14.3752 4.58308C13.8008 4.58308 13.3336 5.04967 13.3336 5.62403C13.3336 6.19841 13.8002 6.66572 14.3752 6.66572C14.9496 6.66572 15.4169 6.19913 15.4169 5.62403C15.4169 5.04967 14.9488 4.58236 14.3752 4.58308Z" fill=""/>
                         </svg>
                       </button>
                     </div>
                   </div>
 
-                  <button
-                    @click="isProfileInfoModal = true"
-                    class="flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200 lg:inline-flex lg:w-auto"
-                  >
-                    <svg
-                      class="fill-current"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 18 18"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M15.0911 2.78206C14.2125 1.90338 12.7878 1.90338 11.9092 2.78206L4.57524 10.116C4.26682 10.4244 4.0547 10.8158 3.96468 11.2426L3.31231 14.3352C3.25997 14.5833 3.33653 14.841 3.51583 15.0203C3.69512 15.1996 3.95286 15.2761 4.20096 15.2238L7.29355 14.5714C7.72031 14.4814 8.11172 14.2693 8.42013 13.9609L15.7541 6.62695C16.6327 5.74827 16.6327 4.32365 15.7541 3.44497L15.0911 2.78206ZM12.9698 3.84272C13.2627 3.54982 13.7376 3.54982 14.0305 3.84272L14.6934 4.50563C14.9863 4.79852 14.9863 5.2734 14.6934 5.56629L14.044 6.21573L12.3204 4.49215L12.9698 3.84272ZM11.2597 5.55281L5.6359 11.1766C5.53309 11.2794 5.46238 11.4099 5.43238 11.5522L5.01758 13.5185L6.98394 13.1037C7.1262 13.0737 7.25666 13.003 7.35947 12.9002L12.9833 7.27639L11.2597 5.55281Z"
-                        fill=""
-                      />
+                  <button id="edit-profile-btn" class="flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200 lg:inline-flex lg:w-auto">
+                    <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M15.0911 2.78206C14.2125 1.90338 12.7878 1.90338 11.9092 2.78206L4.57524 10.116C4.26682 10.4244 4.0547 10.8158 3.96468 11.2426L3.31231 14.3352C3.25997 14.5833 3.33653 14.841 3.51583 15.0203C3.69512 15.1996 3.95286 15.2761 4.20096 15.2238L7.29355 14.5714C7.72031 14.4814 8.11172 14.2693 8.42013 13.9609L15.7541 6.62695C16.6327 5.74827 16.6327 4.32365 15.7541 3.44497L15.0911 2.78206ZM12.9698 3.84272C13.2627 3.54982 13.7376 3.54982 14.0305 3.84272L14.6934 4.50563C14.9863 4.79852 14.9863 5.2734 14.6934 5.56629L14.044 6.21573L12.3204 4.49215L12.9698 3.84272ZM11.2597 5.55281L5.6359 11.1766C5.53309 11.2794 5.46238 11.4099 5.43238 11.5522L5.01758 13.5185L6.98394 13.1037C7.1262 13.0737 7.25666 13.003 7.35947 12.9002L12.9833 7.27639L11.2597 5.55281Z" fill=""/>
                     </svg>
                     Edit
                   </button>
                 </div>
               </div>
 
-              <div
-                class="p-5 mb-6 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6"
-              >
-                <div
-                  class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between"
-                >
+              <!-- Personal Information -->
+              <div class="p-5 mb-6 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
+                <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
                   <div>
-                    <h4
-                      class="text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-6"
-                    >
-                      Personal Information
-                    </h4>
+                    <h4 class="text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-6">Personal Information</h4>
 
-                    <div
-                      class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32"
-                    >
+                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
                       <div>
-                        <p
-                          class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400"
-                        >
-                          First Name
-                        </p>
-                        <p
-                          class="text-sm font-medium text-gray-800 dark:text-white/90"
-                        >
-                          Musharof
-                        </p>
+                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">First Name</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">Musharof</p>
                       </div>
 
                       <div>
-                        <p
-                          class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400"
-                        >
-                          Last Name
-                        </p>
-                        <p
-                          class="text-sm font-medium text-gray-800 dark:text-white/90"
-                        >
-                          Chowdhury
-                        </p>
+                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Last Name</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">Chowdhury</p>
                       </div>
 
                       <div>
-                        <p
-                          class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400"
-                        >
-                          Email address
-                        </p>
-                        <p
-                          class="text-sm font-medium text-gray-800 dark:text-white/90"
-                        >
-                          randomuser@pimjo.com
-                        </p>
+                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Email address</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">randomuser@pimjo.com</p>
                       </div>
 
                       <div>
-                        <p
-                          class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400"
-                        >
-                          Phone
-                        </p>
-                        <p
-                          class="text-sm font-medium text-gray-800 dark:text-white/90"
-                        >
-                          +09 363 398 46
-                        </p>
+                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Phone number</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">+990 3343 9865</p>
                       </div>
 
                       <div>
-                        <p
-                          class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400"
-                        >
-                          Bio
-                        </p>
-                        <p
-                          class="text-sm font-medium text-gray-800 dark:text-white/90"
-                        >
-                          Team Manager
-                        </p>
+                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Bio</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                       </div>
                     </div>
                   </div>
 
-                  <button
-                    @click="isProfileInfoModal = true"
-                    class="flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200 lg:inline-flex lg:w-auto"
-                  >
-                    <svg
-                      class="fill-current"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 18 18"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M15.0911 2.78206C14.2125 1.90338 12.7878 1.90338 11.9092 2.78206L4.57524 10.116C4.26682 10.4244 4.0547 10.8158 3.96468 11.2426L3.31231 14.3352C3.25997 14.5833 3.33653 14.841 3.51583 15.0203C3.69512 15.1996 3.95286 15.2761 4.20096 15.2238L7.29355 14.5714C7.72031 14.4814 8.11172 14.2693 8.42013 13.9609L15.7541 6.62695C16.6327 5.74827 16.6327 4.32365 15.7541 3.44497L15.0911 2.78206ZM12.9698 3.84272C13.2627 3.54982 13.7376 3.54982 14.0305 3.84272L14.6934 4.50563C14.9863 4.79852 14.9863 5.2734 14.6934 5.56629L14.044 6.21573L12.3204 4.49215L12.9698 3.84272ZM11.2597 5.55281L5.6359 11.1766C5.53309 11.2794 5.46238 11.4099 5.43238 11.5522L5.01758 13.5185L6.98394 13.1037C7.1262 13.0737 7.25666 13.003 7.35947 12.9002L12.9833 7.27639L11.2597 5.55281Z"
-                        fill=""
-                      />
+                  <button id="edit-info-btn" class="flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200 lg:inline-flex lg:w-auto">
+                    <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M15.0911 2.78206C14.2125 1.90338 12.7878 1.90338 11.9092 2.78206L4.57524 10.116C4.26682 10.4244 4.0547 10.8158 3.96468 11.2426L3.31231 14.3352C3.25997 14.5833 3.33653 14.841 3.51583 15.0203C3.69512 15.1996 3.95286 15.2761 4.20096 15.2238L7.29355 14.5714C7.72031 14.4814 8.11172 14.2693 8.42013 13.9609L15.7541 6.62695C16.6327 5.74827 16.6327 4.32365 15.7541 3.44497L15.0911 2.78206ZM12.9698 3.84272C13.2627 3.54982 13.7376 3.54982 14.0305 3.84272L14.6934 4.50563C14.9863 4.79852 14.9863 5.2734 14.6934 5.56629L14.044 6.21573L12.3204 4.49215L12.9698 3.84272ZM11.2597 5.55281L5.6359 11.1766C5.53309 11.2794 5.46238 11.4099 5.43238 11.5522L5.01758 13.5185L6.98394 13.1037C7.1262 13.0737 7.25666 13.003 7.35947 12.9002L12.9833 7.27639L11.2597 5.55281Z" fill=""/>
                     </svg>
                     Edit
                   </button>
                 </div>
               </div>
-              <div
-                class="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6"
-              >
-                <div
-                  class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between"
-                >
+
+              <!-- Address -->
+              <div class="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
+                <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
                   <div>
-                    <h4
-                      class="text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-6"
-                    >
-                      Address
-                    </h4>
+                    <h4 class="text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-6">Address</h4>
 
-                    <div
-                      class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32"
-                    >
+                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
                       <div>
-                        <p
-                          class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400"
-                        >
-                          Country
-                        </p>
-                        <p
-                          class="text-sm font-medium text-gray-800 dark:text-white/90"
-                        >
-                          United States
-                        </p>
+                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Country</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">United States</p>
                       </div>
 
                       <div>
-                        <p
-                          class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400"
-                        >
-                          City/State
-                        </p>
-                        <p
-                          class="text-sm font-medium text-gray-800 dark:text-white/90"
-                        >
-                          Arizona, United States
-                        </p>
+                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">City/State</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">Arizona, United States</p>
                       </div>
 
                       <div>
-                        <p
-                          class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400"
-                        >
-                          Postal Code
-                        </p>
-                        <p
-                          class="text-sm font-medium text-gray-800 dark:text-white/90"
-                        >
-                          ERT 2489
-                        </p>
+                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Postal Code</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">ERT 2489</p>
                       </div>
 
                       <div>
-                        <p
-                          class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400"
-                        >
-                          TAX ID
-                        </p>
-                        <p
-                          class="text-sm font-medium text-gray-800 dark:text-white/90"
-                        >
-                          AS4568384
-                        </p>
+                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">TAX ID</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">AS4568384</p>
                       </div>
                     </div>
                   </div>
 
-                  <button
-                    @click="isProfileAddressModal = true"
-                    class="flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200 lg:inline-flex lg:w-auto"
-                  >
-                    <svg
-                      class="fill-current"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 18 18"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M15.0911 2.78206C14.2125 1.90338 12.7878 1.90338 11.9092 2.78206L4.57524 10.116C4.26682 10.4244 4.0547 10.8158 3.96468 11.2426L3.31231 14.3352C3.25997 14.5833 3.33653 14.841 3.51583 15.0203C3.69512 15.1996 3.95286 15.2761 4.20096 15.2238L7.29355 14.5714C7.72031 14.4814 8.11172 14.2693 8.42013 13.9609L15.7541 6.62695C16.6327 5.74827 16.6327 4.32365 15.7541 3.44497L15.0911 2.78206ZM12.9698 3.84272C13.2627 3.54982 13.7376 3.54982 14.0305 3.84272L14.6934 4.50563C14.9863 4.79852 14.9863 5.2734 14.6934 5.56629L14.044 6.21573L12.3204 4.49215L12.9698 3.84272ZM11.2597 5.55281L5.6359 11.1766C5.53309 11.2794 5.46238 11.4099 5.43238 11.5522L5.01758 13.5185L6.98394 13.1037C7.1262 13.0737 7.25666 13.003 7.35947 12.9002L12.9833 7.27639L11.2597 5.55281Z"
-                        fill=""
-                      />
+                  <button id="edit-address-btn" class="flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200 lg:inline-flex lg:w-auto">
+                    <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M15.0911 2.78206C14.2125 1.90338 12.7878 1.90338 11.9092 2.78206L4.57524 10.116C4.26682 10.4244 4.0547 10.8158 3.96468 11.2426L3.31231 14.3352C3.25997 14.5833 3.33653 14.841 3.51583 15.0203C3.69512 15.1996 3.95286 15.2761 4.20096 15.2238L7.29355 14.5714C7.72031 14.4814 8.11172 14.2693 8.42013 13.9609L15.7541 6.62695C16.6327 5.74827 16.6327 4.32365 15.7541 3.44497L15.0911 2.78206ZM12.9698 3.84272C13.2627 3.54982 13.7376 3.54982 14.0305 3.84272L14.6934 4.50563C14.9863 4.79852 14.9863 5.2734 14.6934 5.56629L14.044 6.21573L12.3204 4.49215L12.9698 3.84272ZM11.2597 5.55281L5.6359 11.1766C5.53309 11.2794 5.46238 11.4099 5.43238 11.5522L5.01758 13.5185L6.98394 13.1037C7.1262 13.0737 7.25666 13.003 7.35947 12.9002L12.9833 7.27639L11.2597 5.55281Z" fill=""/>
                     </svg>
                     Edit
                   </button>
@@ -399,9 +307,82 @@
     </div>
     <!-- ===== Page Wrapper End ===== -->
 
-    <!-- BEGIN MODAL -->
-    <include src="./partials/profile/profile-info-modal.html" />
-    <include src="./partials/profile/profile-address-modal.html" />
-    <!-- END MODAL -->
+    <script>
+      // Preloader
+      window.addEventListener('load', function() {
+        setTimeout(() => {
+          document.getElementById('preloader').classList.add('loaded');
+        }, 500);
+      });
+
+      // Sidebar toggle
+      const sidebarToggle = document.getElementById('sidebar-toggle');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      let sidebarOpen = false;
+
+      sidebarToggle.addEventListener('click', function() {
+        sidebarOpen = !sidebarOpen;
+        if (sidebarOpen) {
+          sidebar.classList.remove('-translate-x-full');
+          sidebar.classList.add('translate-x-0');
+          overlay.classList.add('active');
+        } else {
+          sidebar.classList.add('-translate-x-full');
+          sidebar.classList.remove('translate-x-0');
+          overlay.classList.remove('active');
+        }
+      });
+
+      // Close sidebar when clicking overlay
+      overlay.addEventListener('click', function() {
+        sidebarOpen = false;
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('translate-x-0');
+        overlay.classList.remove('active');
+      });
+
+      // Dark mode toggle
+      const themeToggle = document.getElementById('theme-toggle');
+      let darkMode = localStorage.getItem('darkMode') === 'true';
+      
+      function updateTheme() {
+        if (darkMode) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+        localStorage.setItem('darkMode', darkMode);
+      }
+      
+      updateTheme();
+      
+      themeToggle.addEventListener('click', function() {
+        darkMode = !darkMode;
+        updateTheme();
+      });
+
+      // Close sidebar on window resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth >= 1024) {
+          sidebarOpen = false;
+          sidebar.classList.add('-translate-x-full', 'lg:translate-x-0');
+          overlay.classList.remove('active');
+        }
+      });
+
+      // Edit button handlers (placeholder functionality)
+      document.getElementById('edit-profile-btn').addEventListener('click', function() {
+        alert('Edit profile functionality would be implemented here');
+      });
+
+      document.getElementById('edit-info-btn').addEventListener('click', function() {
+        alert('Edit personal information functionality would be implemented here');
+      });
+
+      document.getElementById('edit-address-btn').addEventListener('click', function() {
+        alert('Edit address functionality would be implemented here');
+      });
+    </script>
   </body>
 </html>
