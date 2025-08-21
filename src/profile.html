@@ -8,17 +8,10 @@
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Profile | TailAdmin - Tailwind CSS Admin Dashboard Template</title>
+    <link href="./output.css" rel="stylesheet" />
+    <script src="./js/include.js" defer></script>
   </head>
-  <body
-    x-data="{ page: 'profile', 'loaded': true, 'darkMode': false, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false, 'isProfileInfoModal': false, 'isProfileAddressModal': false }"
-    x-init="
-         darkMode = JSON.parse(localStorage.getItem('darkMode'));
-         $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
-    :class="{'dark bg-gray-900': darkMode === true}"
-  >
-    <!-- ===== Preloader Start ===== -->
-    <include src="./partials/preloader.html"></include>
-    <!-- ===== Preloader End ===== -->
+  <body>
 
     <!-- ===== Page Wrapper Start ===== -->
     <div class="flex h-screen overflow-hidden">
@@ -30,9 +23,7 @@
       <div
         class="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto"
       >
-        <!-- Small Device Overlay Start -->
-        <include src="./partials/overlay.html" />
-        <!-- Small Device Overlay End -->
+        
 
         <!-- ===== Header Start ===== -->
         <include src="./partials/header.html" />
@@ -42,7 +33,7 @@
         <main>
           <div class="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
             <!-- Breadcrumb Start -->
-            <div x-data="{ pageName: `Profile`}">
+            <div>
               <include src="./partials/breadcrumb.html" />
             </div>
             <!-- Breadcrumb End -->
